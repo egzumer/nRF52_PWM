@@ -287,7 +287,7 @@ class nRF52_PWM
     // dutycycle = 0.0f - 100.0f => 0-65535
     nRF52_PWM(const uint32_t& pin, const float& frequency, const float& dutycycle)
     {
-      _dutycycle  = round(map(dutycycle, 0, 100.0f, 0, MAX_COUNT_16BIT));
+      _dutycycle  = round(MAX_COUNT_16BIT*dutycycle/100.0f);
 
       // create new unique token based on micros()
       NRF52_PWM_TOKEN = (uint32_t) micros();
@@ -532,7 +532,7 @@ class nRF52_PWM
 
     bool setPWM(const uint8_t& pin, const float& frequency, const float& dutycycle)
     {
-      _dutycycle = round(map(dutycycle, 0, 100.0f, 0, MAX_COUNT_16BIT));
+      _dutycycle = round(MAX_COUNT_16BIT*dutycycle/100.0f);
 
       PWM_LOGDEBUG3(F("setPWM: _dutycycle ="), _dutycycle, F(", frequency ="), frequency);
 
@@ -543,7 +543,7 @@ class nRF52_PWM
 
     bool setPWM_Period(const uint8_t& pin, const float& period_us, const float& dutycycle)
     {
-      _dutycycle = round(map(dutycycle, 0, 100.0f, 0, MAX_COUNT_16BIT));
+      _dutycycle = round(MAX_COUNT_16BIT*dutycycle/100.0f);
 
       PWM_LOGDEBUG3(F("setPWM_Period: _dutycycle ="), _dutycycle, F(", period_us ="), period_us);
 
